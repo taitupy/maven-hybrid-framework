@@ -1,0 +1,4 @@
+"BROKEN","EPIC","FAILED","FEATURE","PASSED","SKIPPED","STORY","UNKNOWN"
+"1","HRM Orange","0","Login","0","0","","0"
+"0","","0","","1","0","","0"
+"2","HRM Orange","0","Login","0","0","Login with data driven from Excel, run parallel on multiple browsers","0"
