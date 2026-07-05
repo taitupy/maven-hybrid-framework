@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="NopCommerce - User">
+
+	<parameter name="envName" value="local" />
+	<parameter name="serverName" value="dev" />
+
+	<listeners>
+		<listener class-name="commons.MethodListener" />
+		<listener class-name="reportConfig.reportNGListener" />
+		<listener class-name="reportConfig.ExtentTestListener" />
+		<listener class-name="reportConfig.AllureTestListener" />
+		<listener class-name="org.uncommons.reportng.HTMLReporter" />
+		<listener
+			class-name="org.uncommons.reportng.JUnitXMLReporter" />
+	</listeners>
+
+	<test name="Run on Firefox">
+		<parameter name="browser" value="firefox" />
+		<parameter name="osName" value="Windows" />
+		<classes>
+			<class name="com.nopcommerce.cloud.Level_24_Nopcommerce_Run_All" />
+		</classes>
+	</test>
+
+	<test name="Run on Opera">
+		<parameter name="browser" value="Opera" />
+		<parameter name="osName" value="Windows" />
+		<classes>
+			<class
+				name="com.nopcommerce.cloud.Level_24_Nopcommerce_Run_All" />
+		</classes>
+	</test>
+
+</suite>
