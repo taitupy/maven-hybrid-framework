@@ -1,0 +1,21 @@
+<suite name="HRMOrange - Level06 - Allure - CI" parallel="tests" thread-count="2">
+    <listeners>
+        <listener class-name="commons.MethodListener"/>
+        <listener class-name="reportConfig.AllureListener"/>
+    </listeners>
+    <!--  Edge is intentionally excluded here: ubuntu GitHub runners do not
+             ship msedgedriver/Edge reliably, so CI only runs Chrome + Firefox.
+             Use runHRMOrangeLevel06.xml (with Edge) for local runs on Windows/Mac.  -->
+    <test name="Run on Chrome">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.hrmorange.Level_06_ParalellTesting_Allure"/>
+        </classes>
+    </test>
+    <test name="Run on Firefox">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="com.hrmorange.Level_06_ParalellTesting_Allure"/>
+        </classes>
+    </test>
+</suite>

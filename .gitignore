@@ -36,3 +36,8 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Test output (auto-generated, do not commit) ###
+allure-json/
+allure-history/
+test-output/
