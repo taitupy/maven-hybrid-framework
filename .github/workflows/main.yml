@@ -1,0 +1,60 @@
+name: HRM Orange - Selenium CI (Level_06 + Allure)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+# Needed so the workflow can push the generated report to the gh-pages branch
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'maven'
+
+      # Ubuntu runners already ship Chrome + Firefox, but Selenium still
+      # needs a display server to launch a real (non-headless) browser.
+      - name: Run tests on Chrome & Firefox (via virtual display)
+        uses: coactions/setup-xvfb@v1
+        with:
+          run: >
+            mvn -B clean test
+            -Dsurefire.suiteXmlFiles=src/test/resources/runHRMOrangeLevel06_CI.xml
+
+      - name: Upload raw Allure results (for debugging failed CI runs)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: allure-json
+          retention-days: 15
+
+      - name: Build Allure HTML report
+        if: always()
+        uses: simple-elf/allure-report-action@master
+        with:
+          allure_results: allure-json
+          allure_history: allure-history
+          keep_reports: 20
+
+      - name: Publish Allure report to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
